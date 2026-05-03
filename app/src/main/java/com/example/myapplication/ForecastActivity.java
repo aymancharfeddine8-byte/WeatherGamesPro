@@ -36,7 +36,6 @@ public class ForecastActivity extends AppCompatActivity {
         adapter = new ForecastAdapter(list);
         recycler.setAdapter(adapter);
 
-        // Fixed: Use CITY_NAME to match MainActivity's intent
         String city = getIntent().getStringExtra("CITY_NAME");
         if (city == null || city.isEmpty()) city = "Tunis";
 
@@ -45,14 +44,13 @@ public class ForecastActivity extends AppCompatActivity {
 
     private void getForecast(String city) {
         String url = "https://api.openweathermap.org/data/2.5/forecast?q="
-                + Uri.encode(city) + "&units=metric&appid=4c065084624752c5d3f2323bf62464e3";
+                + Uri.encode(city) + "&units=metric&appid=" + BuildConfig.WEATHER_API_KEY;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
                         JSONArray arr = response.getJSONArray("list");
                         list.clear();
-                        // OpenWeather provides 3-hour steps, so we skip 8 to get daily data
                         for (int i = 0; i < arr.length(); i += 8) {
                             JSONObject obj = arr.getJSONObject(i);
                             double temp = obj.getJSONObject("main").getDouble("temp");
@@ -60,7 +58,7 @@ public class ForecastActivity extends AppCompatActivity {
                             
                             String dateText = obj.getString("dt_txt").split(" ")[0];
                             String[] parts = dateText.split("-");
-                            String displayDate = parts[2] + "/" + parts[1]; // Shows DD/MM
+                            String displayDate = parts[2] + "/" + parts[1];
 
                             list.add(new ForecastItem(displayDate, temp, icon));
                         }

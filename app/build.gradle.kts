@@ -15,6 +15,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resConfigs("en")
+
+        // Step 3: Expose API Key via Gradle
+        val apiKey: String = project.findProperty("WEATHER_API_KEY") as String? ?: ""
+        buildConfigField("String", "WEATHER_API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -34,6 +38,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    // Required to generate BuildConfig class
+    buildFeatures {
+        buildConfig = true
     }
 }
 

@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String API_KEY = "4c065084624752c5d3f2323bf62464e3";
+    private static final String API_KEY = BuildConfig.WEATHER_API_KEY;
     private static final String CHANNEL_ID = "weather_alerts";
 
     private EditText etCity;
