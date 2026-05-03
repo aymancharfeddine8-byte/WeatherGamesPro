@@ -67,12 +67,14 @@ android {
     }
 }
 
+val finalApiKey = weatherApiKey
 tasks.register("printApiKey") {
+    val keyToPrint = finalApiKey
     doLast {
-        if (weatherApiKey.isEmpty() || weatherApiKey == "YOUR_API_KEY_HERE") {
+        if (keyToPrint.isEmpty() || keyToPrint == "YOUR_API_KEY_HERE") {
             println("WARNING: No valid API key found. Please add WEATHER_API_KEY to local.properties")
         } else {
-            println("DEBUG_API_KEY_START:[$weatherApiKey]:DEBUG_API_KEY_END")
+            println("DEBUG_API_KEY_START:[$keyToPrint]:DEBUG_API_KEY_END")
         }
     }
 }
