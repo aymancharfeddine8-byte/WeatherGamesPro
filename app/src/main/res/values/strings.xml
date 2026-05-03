@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Weather &amp; Games Pro</string>
+    <string name="hidden_task">Secret Task</string>
+    <string name="reveal_text">Reveal</string>
+    <string name="hide_text">Hide</string>
+    <string name="new_task_text">New Task</string>
+    <string name="score_label">Score: %1$d</string>
+    <string name="timer_label">Time: %1$d</string>
+    <string name="ready_text">Ready\?</string>
+    <string name="math_question_format">%1$d + %2$d = \?</string>
+</resources>

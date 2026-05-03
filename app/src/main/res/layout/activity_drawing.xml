@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    android:fitsSystemWindows="true">
+
+    <!-- Top Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212121"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SECRET TASK:"
+                    android:textColor="#AAAAAA"
+                    android:textSize="10sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tvTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hidden_task"
+                    android:textColor="#FFEB3B"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnReveal"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/reveal_text"
+                android:textSize="12sp"
+                android:backgroundTint="#FF9800"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnNewTask"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/new_task_text"
+                android:textSize="12sp"
+                android:backgroundTint="#607D8B"
+                android:layout_marginEnd="8dp"/>
+
+            <ImageButton
+                android:id="@+id/btnUndo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@android:drawable/ic_menu_revert"
+                app:tint="#FFFFFF"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Undo" />
+
+            <ImageButton
+                android:id="@+id/btnRedo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@android:drawable/ic_menu_revert"
+                android:scaleX="-1"
+                app:tint="#FFFFFF"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Redo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <CheckBox
+                android:id="@+id/cbGlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Neon"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <CheckBox
+                android:id="@+id/cbRainbow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rainbow"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:layout_marginStart="8dp"/>
+
+            <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btnShare"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Share"
+                android:backgroundTint="#2196F3"
+                android:textSize="10sp"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Clear All"
+                android:backgroundTint="#D32F2F"
+                android:textSize="10sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#EEEEEE"
+        android:gravity="center_vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Size" android:textSize="12sp"/>
+        <SeekBar android:id="@+id/sbSize" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:max="50" android:progress="20"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Opacity" android:textSize="12sp" android:layout_marginStart="8dp"/>
+        <SeekBar android:id="@+id/sbOpacity" android:layout_width="100dp" android:layout_height="wrap_content" android:max="255" android:progress="255"/>
+    </LinearLayout>
+
+    <com.example.myapplication.DrawingView
+        android:id="@+id/drawingView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:background="#E0E0E0"
+        android:padding="8dp"
+        android:scrollbars="none"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/colorPaletteLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#000000" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#000000"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#F44336" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#F44336"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#4CAF50" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#4CAF50"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#2196F3" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#2196F3"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#FFEB3B" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#FFEB3B"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#9C27B0" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#9C27B0"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#FF9800" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#FF9800"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#795548" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#795548"/></androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" android:layout_margin="4dp" android:tag="#607D8B" android:clickable="true" android:focusable="true"><View android:layout_width="match_parent" android:layout_height="match_parent" android:background="#607D8B"/></androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>
