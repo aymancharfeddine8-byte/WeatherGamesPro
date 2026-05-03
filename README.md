@@ -33,10 +33,21 @@ An interactive Android application that combines real-time weather forecasting w
 *   **UI/UX:** Material Design components, CardViews, and ConstraintLayouts.
 *   **Persistence:** SharedPreferences for saving High Scores.
 
+## 🔐 Configuration API (Important)
+Pour des raisons de sécurité, la clé API OpenWeatherMap n’est pas incluse dans ce dépôt.
+
+Pour exécuter l’application :
+1. Créer une clé API sur OpenWeatherMap
+2. Ajouter votre clé dans le fichier de configuration (ex: `Constants.java` ou équivalent)
+3. Recompiler et exécuter l’application
+
+> ⚠️ L’application météo nécessite une clé API valide pour fonctionner correctement.
+
 ## 📥 Installation
 1. Clone the repository.
 2. Open in Android Studio.
-3. Build and run on an emulator or physical device (API 24+).
+3. Add your API key (see section above).
+4. Build and run on an emulator or physical device (API 24+).
 
 ---
 *Created as a project for Android Development.*
