@@ -1,5 +1,19 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
+}
+
+// Read API key from gradle.properties or local.properties
+var weatherApiKey: String = (project.findProperty("WEATHER_API_KEY") ?: "").toString()
+
+if (weatherApiKey.isEmpty()) {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        val props = Properties()
+        localPropertiesFile.inputStream().use { props.load(it) }
+        weatherApiKey = props.getProperty("WEATHER_API_KEY") ?: ""
+    }
 }
 
 android {
@@ -14,11 +28,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        resConfigs("en")
 
-        // Step 3: Expose API Key via Gradle
-        val apiKey: String = project.findProperty("WEATHER_API_KEY") as String? ?: ""
-        buildConfigField("String", "WEATHER_API_KEY", "\"$apiKey\"")
+        buildConfigField("String", "WEATHER_API_KEY", "\"$weatherApiKey\"")
+    }
+
+    androidResources {
+        localeFilters += "en"
     }
 
     buildTypes {
@@ -40,9 +55,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    // Required to generate BuildConfig class
     buildFeatures {
         buildConfig = true
+    }
+}
+
+tasks.register("printApiKey") {
+    doLast {
+        println("DEBUG_API_KEY_START:[$weatherApiKey]:DEBUG_API_KEY_END")
     }
 }
 
