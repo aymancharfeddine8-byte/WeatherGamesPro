@@ -4,15 +4,20 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
-// Read API key from gradle.properties or local.properties
-var weatherApiKey: String = (project.findProperty("WEATHER_API_KEY") ?: "").toString()
+// 1. Try to read from local.properties first (Private/Local)
+var weatherApiKey = ""
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    val props = Properties()
+    localPropertiesFile.inputStream().use { props.load(it) }
+    weatherApiKey = props.getProperty("WEATHER_API_KEY") ?: ""
+}
 
-if (weatherApiKey.isEmpty()) {
-    val localPropertiesFile = rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        val props = Properties()
-        localPropertiesFile.inputStream().use { props.load(it) }
-        weatherApiKey = props.getProperty("WEATHER_API_KEY") ?: ""
+// 2. Fallback to gradle.properties if local.properties didn't have a valid key
+if (weatherApiKey.isEmpty() || weatherApiKey == "YOUR_API_KEY_HERE") {
+    val projectKey = (project.findProperty("WEATHER_API_KEY") ?: "").toString()
+    if (projectKey.isNotEmpty() && projectKey != "YOUR_API_KEY_HERE") {
+        weatherApiKey = projectKey
     }
 }
 
@@ -32,6 +37,7 @@ android {
         buildConfigField("String", "WEATHER_API_KEY", "\"$weatherApiKey\"")
     }
 
+    @Suppress("UnstableApiUsage")
     androidResources {
         localeFilters += "en"
     }
@@ -39,7 +45,8 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
-            isTestCoverageEnabled = false
+            enableUnitTestCoverage = false
+            enableAndroidTestCoverage = false
         }
         release {
             isMinifyEnabled = false
@@ -62,7 +69,11 @@ android {
 
 tasks.register("printApiKey") {
     doLast {
-        println("DEBUG_API_KEY_START:[$weatherApiKey]:DEBUG_API_KEY_END")
+        if (weatherApiKey.isEmpty() || weatherApiKey == "YOUR_API_KEY_HERE") {
+            println("WARNING: No valid API key found. Please add WEATHER_API_KEY to local.properties")
+        } else {
+            println("DEBUG_API_KEY_START:[$weatherApiKey]:DEBUG_API_KEY_END")
+        }
     }
 }
 
